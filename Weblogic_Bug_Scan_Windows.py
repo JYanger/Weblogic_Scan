@@ -203,7 +203,7 @@ def main():
         COL.print_write_text('e.g: python2 Weblogic_Bug_Scan.py [ip.txt] [thread_num]')
     else:
         run(sys.argv[1],int(sys.argv[2]))
-        COL.print_write_text('check all ip end, bey')
+        COL.print_write_text('check all ip end, bye')
         
 '''
 if __name__=='__main__':
