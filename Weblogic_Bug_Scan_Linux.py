@@ -203,7 +203,7 @@ def main():
         print('\033[1;37me.g: python2 main.py [ip.txt] [thread_num]\033[0m')
     else:
         run(sys.argv[1],int(sys.argv[2]))
-        print('\033[1;37mcheck all ip end, bey\033[0m')
+        print('\033[1;37mcheck all ip end, bye\033[0m')
 
 '''       
 if __name__=='__main__':
