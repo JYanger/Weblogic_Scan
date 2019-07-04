@@ -4,6 +4,6 @@ usage:  python2  main.py  [url.txt]  [Thread_num]
 
 2、自己可以自定义扫描端口，端口字典在   /Payload/default_data/dict_ports.py 
 
-3、所有请求全部通过socket模块进行，为了防止遗漏，web请求相关Payload验证模块都进行 http/https两种验证模式
+3、所有请求全部通过socket模块进行，为了防止遗漏，web请求相关Payload模块都进行 http/https两种验证模式
 
 4、结果存放在Output目录下
