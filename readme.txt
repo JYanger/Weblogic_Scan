@@ -1,9 +1,9 @@
 usage:  python2  main.py  [url.txt]  [Thread_num]
 
-1¡¢ÅúÁ¿¼ì²âweblogicÂ©¶´¹¤¾ß£¬¼æÈİLinuxºÍWindows
+1ã€æ‰¹é‡æ£€æµ‹weblogicæ¼æ´å·¥å…·ï¼Œå…¼å®¹Linuxå’ŒWindows
 
-2¡¢×Ô¼º¿ÉÒÔ×Ô¶¨ÒåÉ¨Ãè¶Ë¿Ú£¬¶Ë¿Ú×ÖµäÔÚ   /Payload/default_data/dict_ports.py 
+2ã€è‡ªå·±å¯ä»¥è‡ªå®šä¹‰æ‰«æç«¯å£ï¼Œç«¯å£å­—å…¸åœ¨   /Payload/default_data/dict_ports.py 
 
-3¡¢ËùÓĞÇëÇóÈ«²¿Í¨¹ısocketÄ£¿é½øĞĞ£¬ÎªÁË·ÀÖ¹ÒÅÂ©£¬Ã¿¸öPayloadÑéÖ¤Ä£¿é¶¼½øĞĞ http/httpsÁ½ÖÖÑéÖ¤Ä£Ê½
+3ã€æ‰€æœ‰è¯·æ±‚å…¨éƒ¨é€šè¿‡socketæ¨¡å—è¿›è¡Œï¼Œä¸ºäº†é˜²æ­¢é—æ¼ï¼Œwebç›¸å…³PayloadéªŒè¯æ¨¡å—éƒ½è¿›è¡Œ http/httpsä¸¤ç§éªŒè¯æ¨¡å¼
 
-4¡¢½á¹û´æ·ÅÔÚOutputÄ¿Â¼ÏÂ
+4ã€ç»“æœå­˜æ”¾åœ¨Outputç›®å½•ä¸‹
