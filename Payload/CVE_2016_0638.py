@@ -58,7 +58,7 @@ def checkVul(res,index):
 def run(rip,rport,index):
     socket.setdefaulttimeout(2)
     try:
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)        #基于http
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
         #sock.settimeout(10)
         server_addr = (rip, rport)
         t3handshake(sock,server_addr)
@@ -71,7 +71,7 @@ def run(rip,rport,index):
         pass
     
     try:
-        sock = ssl.wrap_socket(socket.socket())                          #基于https
+        sock = ssl.wrap_socket(socket.socket())  
         #sock.settimeout(10)
         server_addr = (rip, rport)
         t3handshake(sock,server_addr)
