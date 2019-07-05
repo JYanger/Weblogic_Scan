@@ -56,7 +56,7 @@ def checkVul(res,index):
         pass
 
 def run(rip,rport,index):
-    socket.setdefaulttimeout(1)
+    socket.setdefaulttimeout(2)
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)        #基于http
         #sock.settimeout(10)
