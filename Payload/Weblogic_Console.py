@@ -57,5 +57,5 @@ def check(ip):
             pass
     
 if __name__=='__main__':
-    print check('106.120.181.195')
+    print check('127.0.0.1')
 
