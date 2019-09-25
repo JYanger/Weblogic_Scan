@@ -200,7 +200,7 @@ def main():
     Thirdpart.banner1.Banner1()
     COL = Thirdpart.windows_color.Color()
     if len(sys.argv)!=3:
-        COL.print_write_text('e.g: python2 Weblogic_Bug_Scan.py [ip.txt] [thread_num]')
+        COL.print_write_text('e.g: python2 main.py [ip.txt] [thread_num]')
     else:
         run(sys.argv[1],int(sys.argv[2]))
         COL.print_write_text('check all ip end, bye')
