@@ -26,10 +26,10 @@ def check(ip):
                 except socket.error as e:
                     break
             #print buf1                                                  #将接收到的分块传输包，汇总到buf1，输出（此处调试使用）
-
+            client1.close()
             if "BasicConfigOptions.workDir" in buf1 or "Deploying Application" in buf1:
                 return ip,port
-            client1.close()
+            
         except socket.error as e:
             pass
         
@@ -46,10 +46,10 @@ def check(ip):
                     buf = client2.recv(1024)
                 except socket.error as e:
                     break
-                
+            client2.close()  
             if "BasicConfigOptions.workDir" in buf1 or "Deploying Application" in buf1:
                 return ip,port
-            client2.close()
+            
         except socket.error as e:
             pass
        
