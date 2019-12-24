@@ -16,7 +16,6 @@ def check(ip):
             client1 = socket.socket(socket.AF_INET,socket.SOCK_STREAM)   #基于http
             client1.connect((ip,int(port)))
             client1.sendall('''GET /{} HTTP/1.1\r\nHost: {}:{}\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0\r\n\r\n'''.format(payload,ip,port))
-
             buf1 = ""                                                    # 重要 ！！！ 接收分块传输数据包
             buf = "1"
             while len(buf):
@@ -27,10 +26,9 @@ def check(ip):
                 except socket.error as e:
                     break
             #print buf1                                                  #将接收到的分块传输包，汇总到buf1，输出（此处调试使用）
-
+            client1.close()
             if "port out of range:111111" in buf1 or "Deploying Application" in buf1 or "Search public registries" in buf1:
                 return ip,port
-            client1.close()
         except socket.error as e:
             pass
         
@@ -38,7 +36,6 @@ def check(ip):
             client2 = ssl.wrap_socket(socket.socket())                   #基于https
             client2.connect((ip,int(port)))
             client2.sendall('''GET /{} HTTP/1.1\r\nHost: {}:{}\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0\r\n\r\n'''.format(payload,ip,port))
-
             buf1 = ""
             buf = "1"
             while len(buf):
@@ -47,10 +44,9 @@ def check(ip):
                     buf = client2.recv(1024)
                 except socket.error as e:
                     break
-                
+            client2.close() 
             if "port out of range:111111" in buf1 or "Deploying Application" in buf1 or "Search public registries" in buf1:
                 return ip,port
-            client2.close()
         except socket.error as e:
             pass
        
