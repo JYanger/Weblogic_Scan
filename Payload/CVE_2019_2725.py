@@ -21099,7 +21099,7 @@ def check(ip):
             client3.close()
             client3 = socket.socket(socket.AF_INET,socket.SOCK_STREAM)  #检测上传的test.txt是否存在
             client3.connect((ip,int(port)))
-            client3.sendall('''GET /_async/test.txt HTTP/1.1\r\nHost: {}:{}\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0\r\n\r\n''')
+            client3.sendall('''GET /_async/test.txt HTTP/1.1\r\nHost: {}:{}\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0\r\n\r\n'''.format(ip,port))
             buf1 = ""
             buf = "1"
             while len(buf):
@@ -21125,7 +21125,7 @@ def check(ip):
             client3.close()
             client3 = ssl.wrap_socket(socket.socket())
             client3.connect((ip,int(port)))
-            client3.sendall('''GET /_async/test.txt HTTP/1.1\r\nHost: {}:{}\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0\r\n\r\n''')
+            client3.sendall('''GET /_async/test.txt HTTP/1.1\r\nHost: {}:{}\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0\r\n\r\n'''.format(ip,port))
             buf1 = ""
             buf = "1"
             while len(buf):
