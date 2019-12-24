@@ -3,7 +3,7 @@
 #CVE-2019-2725[wls-wsat|_async]
 
 import socket
-import ssl
+import ssl,time
 import default_data.dict_ports
 
 payload1 = '''<?xml version="1.0" encoding="utf-8" ?>
