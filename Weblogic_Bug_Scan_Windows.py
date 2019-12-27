@@ -3,8 +3,8 @@
 #https://github.com/JYanger
 
 import sys,os,Queue,threading,time
-import Thirdpart.windows_color
-import Thirdpart.banner1
+#import Thirdpart.windows_color
+import Thirdpart.banner2
 import Payload.default_data.dict_ports
 import Payload.Weblogic_Uddi_Insideip
 import Payload.Weblogic_Console
@@ -34,41 +34,40 @@ class MyThread(threading.Thread):
                 break 
 
 
-def Check_all(ip):                                  #漏洞检测主模块
+def Check_all(ip):
 
     f = file('Output/valueable.txt','a')
-    COL = Thirdpart.windows_color.Color()
-    
-    #(ip,port)=()
+
     
     '''Weblogic_Uddi_Insideip'''
     try:
         (ip,port) = Payload.Weblogic_Uddi_Insideip.check(ip)
         if (ip,port):
-            COL.print_blue_text('[+]Weblogic_Uddi_Insideip:        '+str((ip,port))+'   Vulnerability level: Low')
+            print('\033[1;34m[+]Weblogic_Uddi_Insideip:        '+str((ip,port))+'   Vulnerability level: Low\033[0m')
             f.write('[+]Weblogic_Uddi_Insideip:        '+str((ip,port))+'   Vulnerability level: Low\r\n')
             (ip,port)=()
     except Exception as e:
         pass
     process()
 
-      
+        
     '''Weblogic_Console'''
     try:
         (ip,port) = Payload.Weblogic_Console.check(ip)
         if (ip,port):
-            COL.print_yellow_text('[+]Weblogic_Console:              '+str((ip,port))+'   Vulnerability level: Middle')
+            print('\033[1;33m[+]Weblogic_Console:              '+str((ip,port))+'   Vulnerability level: Middle\033[0m')
             f.write('[+]Weblogic_Console:              '+str((ip,port))+'   Vulnerability level: Middle\r\n')
             (ip,port)=()
     except Exception as e:
         pass
     process()
+
         
     '''CVE_2014_4210_SSRF'''
     try:
         (ip,port) = Payload.CVE_2014_4210_SSRF.check(ip)
         if (ip,port):
-            COL.print_red_text('[+]CVE_2014_4210_SSRF:            '+str((ip,port))+'   Vulnerability level: High')
+            print('\033[1;31m[+]CVE_2014_4210_SSRF:            '+str((ip,port))+'   Vulnerability level: High\033[0m')
             f.write('[+]CVE_2014_4210_SSRF:            '+str((ip,port))+'   Vulnerability level: High\r\n')
             (ip,port)=()
     except Exception as e:
@@ -80,7 +79,7 @@ def Check_all(ip):                                  #漏洞检测主模块
     try:
         (ip,port) = Payload.CVE_2016_0638.check(ip)
         if (ip,port):
-            COL.print_red_text('[+]CVE_2016_0638[T3]:             '+str((ip,port))+'   Vulnerability level: High')
+            print('\033[1;31m[+]CVE_2016_0638[T3]:             '+str((ip,port))+'   Vulnerability level: High\033[0m')
             f.write('[+]CVE_2016_0638[T3]:             '+str((ip,port))+'   Vulnerability level: High\r\n')
             (ip,port)=()
     except Exception as e:
@@ -92,7 +91,7 @@ def Check_all(ip):                                  #漏洞检测主模块
     try:
         (ip,port) = Payload.CVE_2016_3510.check(ip)
         if (ip,port):
-            COL.print_red_text('[+]CVE_2016_3510[T3]:             '+str((ip,port))+'   Vulnerability level: High')
+            print('\033[1;31m[+]CVE_2016_3510[T3]:             '+str((ip,port))+'   Vulnerability level: High\033[0m')
             f.write('[+]CVE_2016_3510[T3]:             '+str((ip,port))+'   Vulnerability level: High\r\n')
             (ip,port)=()
     except Exception as e:
@@ -104,7 +103,7 @@ def Check_all(ip):                                  #漏洞检测主模块
     try:
         (ip,port) = Payload.CVE_2017_3248.check(ip)
         if (ip,port):
-            COL.print_red_text('[+]CVE_2017_3248[T3]:             '+str((ip,port))+'   Vulnerability level: High')
+            print('\033[1;31m[+]CVE_2017_3248[T3]:             '+str((ip,port))+'   Vulnerability level: High\033[0m')
             f.write('[+]CVE_2017_3248[T3]:             '+str((ip,port))+'   Vulnerability level: High\r\n')
             (ip,port)=()
     except Exception as e:
@@ -116,7 +115,7 @@ def Check_all(ip):                                  #漏洞检测主模块
     try:
         (ip,port) = Payload.CVE_2017_3506.check(ip)
         if (ip,port):
-            COL.print_red_text('[+]CVE_2017_3506[wls-wsat]:       '+str((ip,port))+'   Vulnerability level: High')
+            print('\033[1;31m[+]CVE_2017_3506[wls-wsat]:       '+str((ip,port))+'   Vulnerability level: High\033[0m')
             f.write('[+]CVE_2017_3506[wls-wsat]:       '+str((ip,port))+'   Vulnerability level: High\r\n')
             (ip,port)=()
     except Exception as e:
@@ -128,7 +127,7 @@ def Check_all(ip):                                  #漏洞检测主模块
     try:
         (ip,port) = Payload.CVE_2017_10271.check(ip)
         if (ip,port):
-            COL.print_red_text('[+]CVE_2017_10271[wls-wsat]:      '+str((ip,port))+'   Vulnerability level: High')
+            print('\033[1;31m[+]CVE_2017_10271[wls-wsat]:      '+str((ip,port))+'   Vulnerability level: High\033[0m')
             f.write('[+]CVE_2017_10271[wls-wsat]:      '+str((ip,port))+'   Vulnerability level: High\r\n')
             (ip,port)=()
     except Exception as e:
@@ -138,9 +137,9 @@ def Check_all(ip):                                  #漏洞检测主模块
 
     '''CVE_2018_2628'''
     try:
-        (ip,port) = Payload.CVE_2018_2628.check(ip) 
+        (ip,port) = Payload.CVE_2018_2628.check(ip)
         if (ip,port):
-            COL.print_red_text('[+]CVE_2018_2628[T3]:             '+str((ip,port))+'   Vulnerability level: High')
+            print('\033[1;31m[+]CVE_2018_2628[T3]:             '+str((ip,port))+'   Vulnerability level: High\033[0m')
             f.write('[+]CVE_2018_2628[T3]:             '+str((ip,port))+'   Vulnerability level: High\r\n')
             (ip,port)=()
     except Exception as e:
@@ -152,52 +151,50 @@ def Check_all(ip):                                  #漏洞检测主模块
     try:
         (ip,port) = Payload.CVE_2018_2893.check(ip)
         if (ip,port):
-            COL.print_red_text('[+]CVE_2018_2893[T3]:             '+str((ip,port))+'   Vulnerability level: High')
+            print('\033[1;31m[+]CVE_2018_2893[T3]:             '+str((ip,port))+'   Vulnerability level: High\033[0m')
             f.write('[+]CVE_2018_2893[T3]:             '+str((ip,port))+'   Vulnerability level: High\r\n')
             (ip,port)=()
     except Exception as e:
         pass
     process()
-    
+
 
     '''CVE_2018_2894'''
     try:
         (ip,port) = Payload.CVE_2018_2894.check(ip)
         if (ip,port):
-            COL.print_red_text('[+]CVE_2018_2894[ws_utc]:         '+str((ip,port))+'   Vulnerability level: High')
+            print('\033[1;31m[+]CVE_2018_2894[ws_utc]:         '+str((ip,port))+'   Vulnerability level: High\033[0m')
             f.write('[+]CVE_2018_2894[ws_utc]:         '+str((ip,port))+'   Vulnerability level: High\r\n')
             (ip,port)=()
     except Exception as e:
         pass
     process()
-    
+
 
     '''CVE_2019_2725'''
     try:
         (ip,port) = Payload.CVE_2019_2725.check(ip)
         if (ip,port):
-            COL.print_red_text('[+]CVE_2019_2725[wls-wsat|_async]:'+str((ip,port))+'   Vulnerability level: High')
+            print('\033[1;31m[+]CVE_2019_2725[wls-wsat|_async]:'+str((ip,port))+'   Vulnerability level: High\033[0m')
             f.write('[+]CVE_2019_2725[wls-wsat|_async]:'+str((ip,port))+'   Vulnerability level: High\r\n')
             (ip,port)=()
     except Exception as e:
         pass
     process()
-    
+
 
     '''CVE_2019_2729'''
     try:
         (ip,port) = Payload.CVE_2019_2729.check(ip)
         if (ip,port):
-            COL.print_red_text('[+]CVE_2019_2729[wls-wsat|_async]:'+str((ip,port))+'   Vulnerability level: High')
+            print('\033[1;31m[+]CVE_2019_2729[wls-wsat|_async]:'+str((ip,port))+'   Vulnerability level: High\033[0m')
             f.write('[+]CVE_2019_2729[wls-wsat|_async]:'+str((ip,port))+'   Vulnerability level: High\r\n')
             (ip,port)=()
     except Exception as e:
         pass
     process()
-    
+
     f.close()
-    
-    
     '''
     try:
         if Payload.CVE_2014_4210_SSRF.check(ip):
@@ -214,10 +211,9 @@ def process():
     run_times = run_times + 1
 
 def run(ipaddress,Thread_count):
-    COL = Thirdpart.windows_color.Color()
     threads = []
     queue = Queue.Queue()
-    file = open(ipaddress,'r')
+    file = open(str(ipaddress),'r')
     for ip in file.readlines():
         ip=ip.replace('\n','')
         ip=ip.replace('\r','')
@@ -239,30 +235,29 @@ def run(ipaddress,Thread_count):
             continue
 
 def main():
-    Thirdpart.banner1.Banner1()
-    COL = Thirdpart.windows_color.Color()
+    Thirdpart.banner2.Banner()
     if len(sys.argv)!=3:
-        COL.print_write_text("e.g: python2 "+os.path.basename(sys.argv[0])+" [iplist.txt] "+"[thread_nums]")
+        print("\033[1;37me.g: python2 "+os.path.basename(sys.argv[0])+" [iplist.txt] "+"[thread_nums]\033[0m")
     else:
         iplist = [i.rstrip() for i in open(sys.argv[1])]
         start_time = time.time()
-        COL.print_write_text("----*----Total IP addresses : %d "% len(iplist))
-        COL.print_write_text("----*----Total Port number  : %s "% len(Payload.default_data.dict_ports.ports))
-        COL.print_write_text("----*----Total Payload number: 13")
-        COL.print_write_text("----*----Total Scan number  : %s"% (int(len(iplist))*int(len(Payload.default_data.dict_ports.ports))*13))
-        COL.print_write_text("----*----Current Time: --->  "+ time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
-        COL.print_write_text("----*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*----")
+        print("\033[1;37m----*----Total IP addresses : %d "% len(iplist))
+        print("----*----Total Port number  : %s "% len(Payload.default_data.dict_ports.ports))
+        print("----*----Total Payload number: 13")
+        print("----*----Total Scan number  : %s"% (int(len(iplist))*int(len(Payload.default_data.dict_ports.ports))*13))
+        print("----*----Current Time: --->  "+ time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
+        print("----*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*----\033[0m")
         run(sys.argv[1],int(sys.argv[2]))
-        COL.print_write_text("----*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*----")
-        COL.print_write_text("----*----Last Time:    --->  "+ time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
-        
-'''
+        print("\033[1;37m----*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*----")
+        print("----*----Last Time:    --->  "+ time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))+" \033[0m")
+
+'''       
 if __name__=='__main__':
-    Thirdpart.banner.Banner()
-    COL = Thirdpart.windows_color.Color()
+    Thirdpart.banner2.Banner()
+    #COL = Thirdpart.windows_color.Color()
     if len(sys.argv)!=3:
-        COL.print_write_text('e.g: python2 Weblogic_Bug_Scan.py [ip.txt] [thread_num]')
+        print('\033[1;37me.g: python2 Weblogic_Bug_Scan.py [ip.txt] [thread_num]\033[0m')
     else:
         run(sys.argv[1],int(sys.argv[2]))
-        COL.print_write_text('check all ip end, bey')
-'''        
+        print('\033[1;37mcheck all ip end, bey\033[0m')
+'''
