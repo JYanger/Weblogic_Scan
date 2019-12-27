@@ -2,12 +2,10 @@
 # coding=utf-8
 #https://github.com/JYanger
 
-import os
-import sys
-import Queue
-import threading
+import sys,os,Queue,threading,time
 #import Thirdpart.windows_color
 import Thirdpart.banner2
+import Payload.default_data.dict_ports
 import Payload.Weblogic_Uddi_Insideip
 import Payload.Weblogic_Console
 import Payload.CVE_2014_4210_SSRF
@@ -21,7 +19,7 @@ import Payload.CVE_2018_2893
 import Payload.CVE_2018_2894
 import Payload.CVE_2019_2725
 import Payload.CVE_2019_2729
-
+run_times = 1
 
 class MyThread(threading.Thread):
     def __init__(self,queue):
@@ -39,7 +37,6 @@ class MyThread(threading.Thread):
 def Check_all(ip):
 
     f = file('Output/valueable.txt','a')
-    #COL = Thirdpart.windows_color.Color()
 
     
     '''Weblogic_Uddi_Insideip'''
@@ -51,6 +48,7 @@ def Check_all(ip):
             (ip,port)=()
     except Exception as e:
         pass
+    process()
 
         
     '''Weblogic_Console'''
@@ -62,6 +60,7 @@ def Check_all(ip):
             (ip,port)=()
     except Exception as e:
         pass
+    process()
 
         
     '''CVE_2014_4210_SSRF'''
@@ -73,6 +72,7 @@ def Check_all(ip):
             (ip,port)=()
     except Exception as e:
         pass
+    process()
 
      
     '''CVE_2016_0638'''
@@ -84,6 +84,7 @@ def Check_all(ip):
             (ip,port)=()
     except Exception as e:
         pass
+    process()
 
     
     '''CVE_2016_3510'''
@@ -95,6 +96,7 @@ def Check_all(ip):
             (ip,port)=()
     except Exception as e:
         pass
+    process()
 
 
     '''CVE_2017_3248'''
@@ -106,6 +108,7 @@ def Check_all(ip):
             (ip,port)=()
     except Exception as e:
         pass
+    process()
 
 
     '''CVE_2017_3506'''
@@ -117,6 +120,7 @@ def Check_all(ip):
             (ip,port)=()
     except Exception as e:
         pass
+    process()
 
 
     '''CVE_2017_10271'''
@@ -128,6 +132,7 @@ def Check_all(ip):
             (ip,port)=()
     except Exception as e:
         pass
+    process()
 
 
     '''CVE_2018_2628'''
@@ -139,6 +144,7 @@ def Check_all(ip):
             (ip,port)=()
     except Exception as e:
         pass
+    process()
 
 
     '''CVE_2018_2893'''
@@ -150,6 +156,7 @@ def Check_all(ip):
             (ip,port)=()
     except Exception as e:
         pass
+    process()
 
 
     '''CVE_2018_2894'''
@@ -161,6 +168,7 @@ def Check_all(ip):
             (ip,port)=()
     except Exception as e:
         pass
+    process()
 
 
     '''CVE_2019_2725'''
@@ -172,6 +180,7 @@ def Check_all(ip):
             (ip,port)=()
     except Exception as e:
         pass
+    process()
 
 
     '''CVE_2019_2729'''
@@ -183,6 +192,7 @@ def Check_all(ip):
             (ip,port)=()
     except Exception as e:
         pass
+    process()
 
     f.close()
     '''
@@ -193,23 +203,24 @@ def Check_all(ip):
         pass
     '''
 
-
+def process():
+    global run_times
+    iplist = [i.rstrip() for i in open(sys.argv[1])]
+    sys.stdout.write("Scan Progress : %s%%\r"%("%.5f" % (float(float(run_times)/float(int(len(iplist))*13))*100)))
+    sys.stdout.flush()
+    run_times = run_times + 1
 
 def run(ipaddress,Thread_count):
-    #COL = Thirdpart.windows_color.Color()
     threads = []
-    number = 0
     queue = Queue.Queue()
     file = open(str(ipaddress),'r')
     for ip in file.readlines():
         ip=ip.replace('\n','')
         ip=ip.replace('\r','')
         queue.put(ip)
-        number = number+1
     file.close()
     for i in range(Thread_count):
         threads.append(MyThread(queue))
-    print ('\033[1;37m[+]----------------------total ip '+ str(number)+'--------------------------\033[0m')
     for t in threads:
         try:
             t.start()
@@ -226,10 +237,19 @@ def run(ipaddress,Thread_count):
 def main():
     Thirdpart.banner2.Banner()
     if len(sys.argv)!=3:
-        print('\033[1;37me.g: python2 main.py [ip.txt] [thread_num]\033[0m')
+        print("\033[1;37me.g: python2 "+os.path.basename(sys.argv[0])+" [iplist.txt] "+"[thread_nums]\033[0m")
     else:
+        iplist = [i.rstrip() for i in open(sys.argv[1])]
+        start_time = time.time()
+        print("\033[1;37m----*----Total IP addresses : %d "% len(iplist))
+        print("----*----Total Port number  : %s "% len(Payload.default_data.dict_ports.ports))
+        print("----*----Total Payload number: 13")
+        print("----*----Total Scan number  : %s"% (int(len(iplist))*int(len(Payload.default_data.dict_ports.ports))*13))
+        print("----*----Current Time: --->  "+ time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
+        print("----*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*----")
         run(sys.argv[1],int(sys.argv[2]))
-        print('\033[1;37mcheck all ip end, bye\033[0m')
+        print("----*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*--------*----")
+        print("----*----Last Time:    --->  "+ time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))+"\033[0m")
 
 '''       
 if __name__=='__main__':
