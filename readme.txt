@@ -1,4 +1,4 @@
-usage:  python2  main.py  [url.txt]  [Thread_num]
+usage:  python3  weblogic_bug_scan.py  [ip.txt]  [Thread_num]
 
 1、批量检测weblogic漏洞工具，兼容Linux和Windows
 
