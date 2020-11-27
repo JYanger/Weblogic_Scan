@@ -1,0 +1,111 @@
+# coding:utf-8
+#!/usr/bin/env Python
+# https://github.com/JYanger   ||| 摘自 https://github.com/w-digital-scanner/w9scan
+
+# 模拟一个进城池 线程池，可以向里面添加任务，
+
+import threading,time,sys
+import traceback
+#from lib.core.data import logger
+import queue,random 
+from Thirdpart.printmsg import *
+
+class w8_threadpool:
+    def __init__(self,threadnum,func_scan,Isjoin = False):
+        self.thread_count = self.thread_nums = threadnum
+        self.scan_count_lock = threading.Lock()
+        self.thread_count_lock = threading.Lock()
+        self.load_lock = threading.Lock()
+        self.scan_count = 0
+        self.isContinue = True
+        self.func_scan = func_scan
+        self.queue = queue.Queue()
+        self.isjoin = Isjoin
+
+    def push(self,payload):
+        self.queue.put(payload)
+
+    def changeScanCount(self,num):
+        self.scan_count_lock.acquire()
+        self.scan_count += num
+        self.scan_count_lock.release()
+
+    def changeThreadCount(self,num):
+        self.thread_count_lock.acquire()
+        self.thread_count += num
+        self.thread_count_lock.release()
+
+    def run(self):
+        th = []
+        for i in range(self.thread_nums):
+            t = threading.Thread(target=self.scan)
+            t.setDaemon(True)
+            t.start()
+            th.append(t)
+        # It can quit with Ctrl-C
+        try:
+            if self.isjoin:
+                for tt in th:
+                    tt.join()
+            else:
+                while 1:
+                    if self.thread_count > 0 and self.isContinue:
+                        time.sleep(0.01)
+                    else:
+                        break
+        except KeyboardInterrupt:
+            printRed("\n[!] 用户退出.")
+            sys.exit(0)
+        except Exception as e:
+            printRed("\n[!] 程序错误!")
+            sys.exit(0)
+                    
+    def stop(self):
+        self.load_lock.acquire()
+        self.isContinue = False
+        self.load_lock.release()
+        
+    def scan(self):
+        while 1:
+            self.load_lock.acquire()
+            if self.queue.qsize() > 0 and self.isContinue:
+                payload = self.queue.get()
+
+                self.load_lock.release()
+            else:
+                self.load_lock.release()
+                break
+            try:
+                # POC在执行时报错如果不被处理，线程框架会停止并退出
+                self.func_scan(payload)
+                time.sleep(0.3)
+            except KeyboardInterrupt:
+                self.isContinue = False
+                raise KeyboardInterrupt
+            except Exception:
+                errmsg = traceback.format_exc()
+                self.isContinue = False
+                print(errmsg)
+                #logger.error(errmsg)
+
+            # self.changeScanCount(-1)
+        self.changeThreadCount(-1)
+
+
+if __name__ == '__main__':
+    def calucator(num):
+        i = random.randint(1, 100)
+        u = num
+        a = i * u
+        if (a % 6 == 0):
+            for x in range(5):
+                print('new thread')
+                p.push(x)
+                print
+
+    p = w8_threadpool(3, calucator)
+    for i in range(100):
+        p.push(i)
+    p.run()
+
+
