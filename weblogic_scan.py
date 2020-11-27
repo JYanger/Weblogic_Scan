@@ -2,7 +2,7 @@
 # coding=utf-8
 #https://github.com/JYanger
 
-import Main.Weblogic_Scan
+import Main.scan
 
 if __name__=="__main__":
-    Main.Weblogic_Scan.main()
+    Main.scan.main()
