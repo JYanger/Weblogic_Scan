@@ -38,9 +38,8 @@ def check(ip):
             buf = client1.recv(1024)
             client1.close()
             if buf !='':
-                text_create(str(ip)+'\n')
-                IPcount = 1
-                return  
+                text_create(str(ip)+':'+str(port)+'\n')
+                IPcount = 1  
         except socket.error as e:
             pass
         
@@ -51,9 +50,8 @@ def check(ip):
             buf1 = client1.recv(1024)
             client2.close()
             if buf1 !='':
-                text_create(str(ip)+'\n')
-                IPcount = 1
-                return  
+                text_create(str(ip)+':'+str(port)+'\n')
+                IPcount = 1 
         except socket.error as e:
             pass
         
@@ -82,4 +80,3 @@ def Survival():
         
 if __name__=="__main__":
     Remove_duplication('Survival_URL.txt')
-
