@@ -30,47 +30,44 @@ def Import_py_name():
     Import_Files = (",".join(pyfilename))'''
     return pyfiles
 
-def Check_all(ip):
+def Check_all(ip,port):
      
    f = open('Output/valueable.txt','a')
    for i in range(0,len(Import_py_name())):
        #print('Payload.'+("".join(Import_py_name()[i])))
-       for port in ports:
-           try:
-               (ip,port) = eval('Payload.'+("".join(Import_py_name()[i]))).check(ip,port)
-               if (ip,port):
-                   if 'Insideip' in Import_py_name()[i]:
-                       printBlue('[+] 漏洞名称：{} 漏洞地址//:'.format(Import_py_name()[i])+ip+':'+port+'   低危<原理扫描>')
-                       f.write('[+] 漏洞名称：{} '.format(Import_py_name()[i])+ip+':'+port+' 低危<原理扫描>\n')
-                       (ip,port)=()
-                   elif 'Weblogic_Console' in Import_py_name()[i]:  
-                       if(Payload.Weblogic_brute.brute(ip,port)):      #只有扫出来console接口，才进行弱口令破解
-                           (username,password) = Payload.Weblogic_brute.brute(ip,port)
-                           printRed('[+] 漏洞名称：{}  漏洞地址//:'.format(Import_py_name()[i])+ip+':'+port+'-->用户密码:'+username+'/'+password+'   高危<原理扫描>')
-                           f.write('[+] 漏洞名称：{}  漏洞地址//:'.format(Import_py_name()[i])+ip+':'+port+'-->用户密码:'+username+'/'+password+'   高危<原理扫描>\n')
-                       else:    
-                           printYellow('[+] 漏洞名称：{} 漏洞地址//'.format(Import_py_name()[i])+ip+':'+port+'   中危<原理扫描>')
-                           f.write('[+] 漏洞名称：{}  漏洞地址//:'.format(Import_py_name()[i])+ip+':'+port+' 中危<原理扫描>\n')
-                       (ip,port)=()
-                   elif 'CVE_2019_2618' in Import_py_name()[i]:
-                       printYellow('[+] 漏洞名称：{}  漏洞地址//:'.format((Import_py_name()[i]))+ip+':'+port+'   中危[需要验证]')
+       try:
+           (ip,port) = eval('Payload.'+("".join(Import_py_name()[i]))).check(ip,port)
+           if (ip,port):
+               if 'Insideip' in Import_py_name()[i]:
+                   printBlue('[+] 漏洞名称：{} 漏洞地址//:'.format(Import_py_name()[i])+ip+':'+port+'   低危<原理扫描>')
+                   f.write('[+] 漏洞名称：{} '.format(Import_py_name()[i])+ip+':'+port+' 低危<原理扫描>\n')
+                   (ip,port)=()
+               elif 'Weblogic_Console' in Import_py_name()[i]:  
+                   if(Payload.Weblogic_brute.brute(ip,port)):      #只有扫出来console接口，才进行弱口令破解
+                       (username,password) = Payload.Weblogic_brute.brute(ip,port)
+                       printRed('[+] 漏洞名称：{}  漏洞地址//:'.format(Import_py_name()[i])+ip+':'+port+'-->用户密码:'+username+'/'+password+'   高危<原理扫描>')
+                       f.write('[+] 漏洞名称：{}  漏洞地址//:'.format(Import_py_name()[i])+ip+':'+port+'-->用户密码:'+username+'/'+password+'   高危<原理扫描>\n')
+                   else:    
+                       printYellow('[+] 漏洞名称：{} 漏洞地址//'.format(Import_py_name()[i])+ip+':'+port+'   中危<原理扫描>')
                        f.write('[+] 漏洞名称：{}  漏洞地址//:'.format(Import_py_name()[i])+ip+':'+port+' 中危<原理扫描>\n')
-                       (ip,port)=()
-                   else:
-                       printRed('[+] 漏洞名称：{}  漏洞地址//:'.format(Import_py_name()[i])+ip+':'+port+'   高危<原理扫描>')
-                       f.write('[+] 漏洞名称：{}  漏洞地址//:'.format(Import_py_name()[i])+ip+':'+port+' 高危<原理扫描>\n')
-                       (ip,port)=()
-           except Exception as e:
-               #print (e)
-               pass
-           process()
+                   (ip,port)=()
+               elif 'CVE_2019_2618' in Import_py_name()[i]:
+                   printYellow('[+] 漏洞名称：{}  漏洞地址//:'.format((Import_py_name()[i]))+ip+':'+port+'   中危[需要验证]')
+                   f.write('[+] 漏洞名称：{}  漏洞地址//:'.format(Import_py_name()[i])+ip+':'+port+' 中危<原理扫描>\n')
+                   (ip,port)=()
+               else:
+                   printRed('[+] 漏洞名称：{}  漏洞地址//:'.format(Import_py_name()[i])+ip+':'+port+'   高危<原理扫描>')
+                   f.write('[+] 漏洞名称：{}  漏洞地址//:'.format(Import_py_name()[i])+ip+':'+port+' 高危<原理扫描>\n')
+                   (ip,port)=()
+       except Exception as e:
+           pass
+       process()
    f.close()
     
 def process():
     global run_times
     iplist = [i.rstrip() for i in open('Survival_URL.txt')]
-    sys.stdout.write(">>>>>扫描速度 : %s%%\r"%("%.5f" % (float(float(run_times)/float(int(len(iplist))*len(Import_py_name()*len(ports))))*100)))
-    #sys.stdout.write("Scan Progress : %s%%\r"%("%.5f" % (float(float(run_times)/float(int(len(iplist))*16))*100)))  #计算扫描进程
+    sys.stdout.write(">>>>>扫描速度 : %s%%\r"%("%.5f" % (float(float(run_times)/float(int(len(iplist))*len(Import_py_name())))*100)))
     sys.stdout.flush()
     run_times = run_times + 1
 
@@ -78,10 +75,10 @@ def run(ipaddress,Thread_count):
     try:
         th = Main.Threadpool.w8_threadpool(Thread_count, Check_all)
         file = open(ipaddress,'r')
-        for ip in file.readlines():
-            ip=ip.replace('\n','')
-            ip=ip.replace('\r','')
-            th.push(ip)
+        for ip_port in file.readlines():
+            ip_port=ip_port.replace('\n','')
+            ip_port=ip_port.replace('\r','')
+            th.push(ip_port)
         file.close()
         th.run()
     except Exception as e:
@@ -104,7 +101,7 @@ def main():
         printWrite("----*----加载Payload数量[/Payload/xxx.py]: %s (默认检测到Console路径才会爆破密码)"%(int(len(Import_py_name())+int(1))))
         printWrite("----*----默认端口字典[/Payload/default_data/dict_ports.py]  : %s"% len(ports))
         printWrite("----*----存活资产数量 : %d "% len(iplist))
-        printWrite("----*----检测总次数  : %s"% (int(len(iplist))*int(len(ports))*len(Import_py_name())))
+        printWrite("----*----检测总次数  : %s"% (int(len(iplist))*len(Import_py_name())))
         run('Survival_URL.txt',int(sys.argv[2]))
         printWrite("----*--------*--------*--------*--------*--------*--------*--------*--------*--------*-----")
         printWrite("----*----结束时间: "+ time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
@@ -112,4 +109,3 @@ def main():
 
 if __name__=="__main__":
     main()
-
