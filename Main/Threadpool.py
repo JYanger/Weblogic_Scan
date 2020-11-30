@@ -24,7 +24,7 @@ class w8_threadpool:
 
     def push(self,payload):
         self.queue.put(payload)
-
+        
     def changeScanCount(self,num):
         self.scan_count_lock.acquire()
         self.scan_count += num
@@ -70,14 +70,19 @@ class w8_threadpool:
             self.load_lock.acquire()
             if self.queue.qsize() > 0 and self.isContinue:
                 payload = self.queue.get()
-
                 self.load_lock.release()
             else:
                 self.load_lock.release()
                 break
             try:
                 # POC在执行时报错如果不被处理，线程框架会停止并退出
-                self.func_scan(payload)
+                if ":" in payload:
+                    payload=payload.split(':')
+                    ip = payload[0]
+                    port = payload[1]
+                    self.func_scan(ip,port)
+                else:
+                    self.func_scan(payload)
                 time.sleep(0.3)
             except KeyboardInterrupt:
                 self.isContinue = False
@@ -90,7 +95,6 @@ class w8_threadpool:
 
             # self.changeScanCount(-1)
         self.changeThreadCount(-1)
-
 
 if __name__ == '__main__':
     def calucator(num):
@@ -107,5 +111,3 @@ if __name__ == '__main__':
     for i in range(100):
         p.push(i)
     p.run()
-
-
