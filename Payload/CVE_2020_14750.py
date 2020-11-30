@@ -54,7 +54,7 @@ def check(ip,port):
         time.sleep(5)
         run(ip,port)
         time.sleep(5)
-        run(ip,port)
+        #run(ip,port)
         if run(ip,port)==2:
             return ip,port
     if run(ip,port)==2:
